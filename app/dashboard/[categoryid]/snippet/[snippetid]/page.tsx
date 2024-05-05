@@ -52,7 +52,7 @@ export default function SnippetDetailsPage({
       const [error, data] = await fetcher<SnippetDetailsResponseType>(
         `${apiUrl}/api/snippet/getSnippetDetails/${snippetid}`
       );
-  
+
       if (data && data.status) {
         setSnippetDetailsResponse(data);
       }
@@ -61,8 +61,6 @@ export default function SnippetDetailsPage({
 
     getSnippetDetails();
   }, [snippetid]);
-
-  
 
   const getInitials = (fullName: string) => {
     const words = fullName.split(" ");
@@ -81,6 +79,18 @@ export default function SnippetDetailsPage({
     const initials = firstNameInitial + lastNameInitial;
 
     return initials;
+  };
+  const formatDescription = (codeSnippet: string) => {
+    let formattedText = codeSnippet.replace(/\n/g, "<br>");
+    return formattedText;
+  };
+
+  const renderFormattedText = (codeSnippet: string) => {
+    let snippet = codeSnippet
+      .split("\\n")
+      .map((text, i) => (i ? ["<br/>", text] : text));
+    console.log("SNIPPET => ", snippet);
+    return snippet;
   };
 
   if (snippetDetailsResponse && snippetDetailsResponse.status) {
@@ -127,9 +137,10 @@ export default function SnippetDetailsPage({
               </div>
               <div className="w-full">
                 <div className="mb-2 font-bold">Snippet: </div>
-                <pre className="bg-black w-full text-white p-2">
-                  {snippetDetails.codeSnippet}
-                </pre>
+                {/* <pre style={{ whiteSpace: 'pre-line' }} className="bg-black w-full text-white p-2">
+                  {renderFormattedText(snippetDetails.codeSnippet)}
+                </pre> */}
+               <p style={{ whiteSpace: 'pre-line' }} className="bg-black w-full text-white p-2">{snippetDetails.codeSnippet.split(/\\n|\n/).map((text, i) => i ? [<br />, text] : text)}</p>
               </div>
             </div>
           </div>

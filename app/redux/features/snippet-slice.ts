@@ -50,21 +50,3 @@ export const { setSnippet } = snippet.actions;
 
 export default snippet.reducer;
 
-/*
-
-logIn :(state,action:PayloadAction<string>)=>{
-    return {
-        value:{
-            isAuth:true,
-            username:action.payload,
-            uid:"ksdjflksdflkjw3lskdfj",
-            isModerator:false
-        }
-    }
-},
-
-toggleModerator :(state) =>{
-    state.value.isModerator  = !state.value.isModerator
-}
-
-*/

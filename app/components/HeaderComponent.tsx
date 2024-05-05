@@ -12,6 +12,7 @@ import { apiUrl } from "../config/config";
 export default function HeaderComponent() {
   const router = useRouter();
   const isAuth = useAppSelector((state) => state.authReducer.isAuth);
+  const userName = useAppSelector((state) => state.authReducer.value.name);
   const dispatch = useDispatch<AppDispatch>();
 
   const handleLogout = async () => {
@@ -21,12 +22,12 @@ export default function HeaderComponent() {
   };
   return (
     <div className="flex flex-row border-b border-[#E7E5E4]">
-      <div className="basis-[20%] flex justify-center items-center border-r border-[#E7E5E4] py-5">
+      <div className="basis-[25%] flex justify-center items-center border-r border-[#E7E5E4] py-5">
         <div className="p-3 border border-[#E7E5E4] rounded-[50px]">
           <h1 className="font-bold text-xl">SnippetDB</h1>
         </div>
       </div>
-      <div className="basis-[60%] flex justify-center items-center px-5">
+      <div className="basis-[40%] flex justify-center items-center px-5">
         {/*search  feature has not been develop  till then set to  false */}
         {false && (
           <div className="border border-[#E7E5E4] flex flex-row w-full rounded-full">
@@ -48,12 +49,13 @@ export default function HeaderComponent() {
         )}
       </div>
       <div
-        style={{ flex: "20%", borderLeft: "1px solid #E7E5E4" }}
-        className="flex flex-row justify-center items-center"
+        
+        className="flex flex-row justify-center items-center basis-[35%] border border-[#E7E5E4]"
       >
         <div className="flex flex-row justify-center items-center pt-5 pb-5">
           {isAuth ? (
-            <div className="flex flex-row gap-4 ">
+            <div className="flex flex-row gap-4 items-center">
+              <span className="border-2 border-[#E7E5E4]  p-2 rounded-full">{userName}</span>
               <button
                 className="border-2 border-sky-600  bg-sky-600 text-white  py-1 px-2 rounded hover:bg-white   hover:text-sky-600 "
                 onClick={handleLogout}

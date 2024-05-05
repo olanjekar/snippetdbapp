@@ -1,7 +1,7 @@
 "use client";
 
-import React, {  useState } from "react";
-import {  poster } from "@/app/lib/fetcher";
+import React, { useState } from "react";
+import { poster } from "@/app/lib/fetcher";
 import Button from "@mui/material/Button";
 
 import TextField from "@mui/material/TextField";
@@ -11,8 +11,14 @@ import HeaderComponent from "../components/HeaderComponent";
 import CheckAuthComponent from "../components/CheckAuthComponent";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/app/redux/store";
-import { setLoggedIn } from "@/app/redux/features/auth-slice";
 import { apiUrl } from "../config/config";
+import { AuthState, logIn } from "../redux/features/auth-slice";
+
+export type AuthStateProtectedRouteResponse = {
+  status: boolean;
+  message: string;
+  data: AuthState;
+};
 
 export default function SignInPage() {
   const router = useRouter();
@@ -30,7 +36,7 @@ export default function SignInPage() {
   const handleSignIn = async () => {
     setErrorMessage([]);
     setIsLoading(true);
-    const [error, data] = await poster<any>(
+    const [error, data] = await poster<AuthStateProtectedRouteResponse>(
       `${apiUrl}/api/auth/signIn`,
       userInfo
     );
@@ -40,7 +46,7 @@ export default function SignInPage() {
       setInfoMessageStatus(true);
       setInfoMessage(data.message);
       setErrorMessage([]);
-      dispatch(setLoggedIn(true));
+      dispatch(logIn(data.data));
       router.push("/dashboard");
     }
 

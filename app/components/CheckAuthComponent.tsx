@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { environment } from "../lib/environment";
 import { fetcher } from "../lib/fetcher";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedSelector";
-import { AuthState, setLoggedIn } from "../redux/features/auth-slice";
+import { AuthState, logIn } from "../redux/features/auth-slice";
 import { useRouter } from "next/navigation";
 
 export type AuthStateProtectedRouteResponse = {
@@ -29,7 +29,7 @@ export default function CheckAuthComponent({
         `${environment.apiUrl}/api/auth/protected`
       );
       if (!error && user && user.status) {
-        dispatch(setLoggedIn(true));
+        dispatch(logIn(user.data));
         router.push("/dashboard");
       } else {
         localStorage.clear();

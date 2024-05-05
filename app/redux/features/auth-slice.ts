@@ -42,18 +42,21 @@ export const auth = createSlice({
             }
         },
 
-        setLoggedIn:(state,action:PayloadAction<boolean>)=>{
-            return {
-                ...state,
-                isAuth:action.payload
-            }
-        }
+        // setLoggedIn:(state,action:PayloadAction<InitialState>)=>{
+        //     return {
+        //         ...state,
+        //         isAuth:action.payload.isAuth,
+        //         user:action.payload.value.name,
+        //         email:action.payload.value.email,
+        //         id:action.payload.value.id
+        //     }
+        // }
 
         
 
     }
 })
 
-export const {logIn,logOut,setLoggedIn} = auth.actions;
+export const {logIn,logOut} = auth.actions;
 
 export default auth.reducer;

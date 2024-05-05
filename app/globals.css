@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 
+pre {
+  white-space: pre-line;
+}
+
 .loader {
   width: 48px;
   height: 48px;
